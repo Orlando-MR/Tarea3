@@ -1,0 +1,72 @@
+---
+title: "Proyecto-OMR_01"
+author: "Orlando Muñoz Recalde"
+date: "7 de julio de 2019"
+output: html_document
+---
+
+```{r}
+getwd()
+```
+
+##Lectura de los datos
+
+Se realiza la lectura de los datos Datos_Churn_train.csv
+```{r}
+Datos.Churn.train <- read.csv2('processed/Datos_Churn_train.csv', header=TRUE, sep=',',dec='.')
+head(Datos.Churn.train)
+```
+
+
+##Transformación y limpieza de los datos
+
+Para quitar la primer columna
+```{r}
+datos<- Datos.Churn.train[,-1]
+```
+
+Estructura de los datos
+```{r}
+str(Datos.Churn.train)
+```
+
+Deja solo las variables numéricas
+```{r}
+datos_num <- datos[,c(3,6,8,9,12,13)]
+```
+
+Se cambia la variable a predecir a tipo categorica
+```{r}
+datos_num$DejaBanco <- factor(datos_num$DejaBanco)
+```
+
+Para ver la estructura de los datos
+```{r}
+str(datos_num)
+```
+
+Guarda el archivo creado en la carpeta data/raw
+```{r}
+write.csv(datos_num,"./raw/datos_num.csv")
+```
+
+##Análisis exploratorio de los datos
+
+Para ver la estructura de los datos
+```{r}
+str(datos_num)
+```
+
+Se indica el tipo de datos
+```{r}
+typeof(datos_num)
+```
+
+Se visualiza una parte de los datos
+```{r}
+head(datos_num)
+```
+
+```{r}
+ggplot(data=datos_num, aes(x=CantidadProductos, y=ScoringCrediticio), color(blue)) + geom_bar(stat="identity") + xlab("Cantidad de Productos") + ylab("Scoring Crediticio") + ggtitle("Cantidad de productos según Scoring de crédito")
+```
